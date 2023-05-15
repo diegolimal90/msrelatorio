@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+  title: Relatororio de lançaamentos
+  description: Api Responsavel para lançamento do fluxo de caixa
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8000'
+paths:
+  /relatorio:
+    summary: Api de emissao de relatorio de lancamentos
+    description: Api para efetuar a emissao de relatorio de lancamentos
+    get:
+      summary: Emissao de Relatorio
+      operationId: buscarLancamentos
+      security:
+        - BearerAuth: [admin]
+      parameters:
+        - in: query
+          name: data
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LancamentoResponse'
+        '403':
+          description: Access token does not have the required scope
+components:
+  schemas:
+    LancamentoResponse:
+      type: object
+      properties:
+        valor:
+          type: number
+          format: double
+        tipoLancamento:
+          type: string
+          enum: [ "DEBITO", "CREDITO" ]
+        dataLancamento:
+          type: string
+          format: date-time
+    AuthenticationRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    AuthenticationResponse:
+      type: object
+      required:
+        - accessToken
+        - refreshToken
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    RegisterRequest:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - email
+        - password
+        - role
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum: [ "ADMIN" ]
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
