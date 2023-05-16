@@ -4,7 +4,7 @@ Aplicação de relatorio do fluxo de caixa construída na arquitetura de microse
 
 # Desenho da arquitetura
 
-![Desenho da arquitetura](testeBancocarrefour.png)
+![Desenho da arquitetura](diagrama.png)
  
 # Tecnologias e bibliotecas utilizados
 
@@ -25,7 +25,8 @@ Obg: É necessario ter o docker e java 11 instalados
 * Navegar até o diretorio raiz e executar a aplicação pelo terminal mvn spring-boot:run
 
 ## Testes
-•	Foram utilizados testes unitarios e de integração. A imagem abaixo mostra a cobertura de codigo dos serviços
+* Foram utilizados testes unitarios. A imagem abaixo mostra a cobertura de codigo dos serviços
+![Relatorio de Teste](img.png)
 
 ## Observalidade
 * Foi adicionado a opção de observalidade, health check e metricas com o prometheus.
